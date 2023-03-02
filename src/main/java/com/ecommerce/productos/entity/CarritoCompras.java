@@ -26,8 +26,5 @@ public class CarritoCompras {
     @ManyToOne(optional = false, cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private Producto productos;
 
-    // La lista de productos se guarda en formato json en la bbdd
-//    private String productos;
-  /*  @ManyToOne(optional = false, cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    private Producto producto;*/
+    private Integer cantidad;
 }

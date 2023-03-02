@@ -2,11 +2,14 @@ package com.ecommerce.productos.controller;
 
 
 import com.ecommerce.productos.entity.CarritoCompras;
+import com.ecommerce.productos.entity.Producto;
+import com.ecommerce.productos.entity.Usuario;
 import com.ecommerce.productos.service.CarritoComprasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/carrito")
@@ -28,22 +31,66 @@ public class CarritoComprasController {
     }
 
     @PostMapping("/nuevo")
-    public void addCarrito(@RequestBody CarritoCompras producto){
-        carritoComprasService.addProducto(producto);
+    public void addCarrito(@RequestBody CarritoCompras carrito){
+
+        Usuario usuario = carrito.getUsuario();
+        Producto producto = carrito.getProductos();
+
+        // Busca si el producto ya existe en el carrito de un usuario
+        CarritoCompras carritoCompras = carritoComprasService
+                .findByUsuarioAndProducto(usuario, producto);
+
+        // Si el producto no existe en el carrito, se crea y se agrega 1
+        if (carritoCompras == null) {
+            carritoCompras = new CarritoCompras();
+            carritoCompras.setUsuario(usuario);
+            carritoCompras.setProductos(producto);
+            carritoCompras.setCantidad(1);
+        }
+        // Si el producto ya existe en el carrito, se suma 1
+        else {
+            int nuevaCantidad = carritoCompras.getCantidad() + 1;
+            carritoCompras.setCantidad(nuevaCantidad);
+        }
+
+        carritoComprasService.addProducto(carritoCompras);
+    }
+    @PostMapping("/restar")
+    public void subtractCarrito(@RequestBody CarritoCompras carrito){
+
+        Usuario usuario = carrito.getUsuario();
+        Producto producto = carrito.getProductos();
+
+        // Busca si el producto ya existe en el carrito de un usuario
+        CarritoCompras carritoCompras = carritoComprasService
+                .findByUsuarioAndProducto(usuario, producto);
+
+        // Si existe y la cantidad es mayor que 1, le resta 1. Si la cantidad de menos de 1, lo elimina
+        if (carritoCompras != null){
+            if (carrito.getCantidad() > 1) {
+                // La cantidad de resta en el front-end para que se muestre mas facil
+                // en pantalla, pero si descomento esta linea, se hace en el back
+                carrito.setCantidad(carrito.getCantidad() - 1);
+                carritoComprasService.addProducto(carrito);
+            } else{
+                carritoComprasService.deleteProductoById(Long.valueOf(carrito.getProductos().getId()));
+            }
+
+        }
     }
 
-    // ESTE elimna todos los productos del carrito del usuario (cambiar, esta mal)
-    @DeleteMapping("/eliminar/{id}")
-    public void deleteCarritoId(@PathVariable Long id){
-        carritoComprasService.deleteByUsuarioId(id);
-    }
 
-    // ESTE elimina un producto en especifico de cada carrito de un usuario
+    // Elimina toda la cantidad de un producto del carrito de un usuario
+    // (al presionar el botón de 'X'. NO resta cantidad.)
     @DeleteMapping("/eliminar/producto/{id}")
-    public void deleteProductoId(@PathVariable Long id){
+    public void removeProductoId(@PathVariable Long id){
         carritoComprasService.deleteProductoById(id);
     }
 
-
+    // Vacía el carrito de un usuario
+    @DeleteMapping("/eliminar/{id}")
+    public void cleanCarritoId(@PathVariable Long id){
+        carritoComprasService.deleteByUsuarioId(id);
+    }
 
 }

@@ -2,6 +2,7 @@ package com.ecommerce.productos.service.impl;
 
 import com.ecommerce.productos.entity.CarritoCompras;
 import com.ecommerce.productos.entity.Producto;
+import com.ecommerce.productos.entity.Usuario;
 import com.ecommerce.productos.repository.CarritoComprasRepository;
 import com.ecommerce.productos.service.CarritoComprasService;
 import jakarta.transaction.Transactional;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Service
@@ -28,6 +30,16 @@ public class CarritoComprasServiceImpl implements CarritoComprasService {
     }
 
     @Override
+    public CarritoCompras findByUsuarioAndProducto(Usuario usuario, Producto producto) {
+        return repository.findByUsuarioAndProducto(usuario, producto);
+    }
+
+    @Override
+    public void addProducto(CarritoCompras producto) {
+        repository.save(producto);
+    }
+
+    @Override
     public void deleteByUsuarioId(Long idUsuario) {
         repository.deleteByUsuarioId(idUsuario);
     }
@@ -42,10 +54,6 @@ public class CarritoComprasServiceImpl implements CarritoComprasService {
         repository.deleteProductoById(idProducto);
     }
 
-    @Override
-    public void addProducto(CarritoCompras producto) {
-        repository.save(producto);
-    }
 
 
 }
