@@ -28,7 +28,7 @@ public class CarritoComprasController {
     }
 
     @PostMapping("/nuevo")
-    public void addCarrito(CarritoCompras producto){
+    public void addCarrito(@RequestBody CarritoCompras producto){
         carritoComprasService.addProducto(producto);
     }
 
