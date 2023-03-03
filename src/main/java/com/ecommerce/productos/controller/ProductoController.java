@@ -44,6 +44,13 @@ public class ProductoController {
         return new ResponseEntity(producto, HttpStatus.OK);
     }
 
+    // Devuelve todos los productos
+    @GetMapping("/todos")
+    public List<Producto> getProductos(){
+        return productoService.findAllProductos();
+    }
+
+    // Devuelve los productos filtrados por categoría
     @GetMapping("/categoria")
     public List<Producto> getProductosByCategoria(
             @RequestParam("categoria") String nombreCategoria,
