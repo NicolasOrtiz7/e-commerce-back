@@ -67,13 +67,11 @@ public class CarritoComprasController {
 
         // Si existe y la cantidad es mayor que 1, le resta 1. Si la cantidad de menos de 1, lo elimina
         if (carritoCompras != null){
-            if (carrito.getCantidad() > 1) {
-                // La cantidad de resta en el front-end para que se muestre mas facil
-                // en pantalla, pero si descomento esta linea, se hace en el back
-                carrito.setCantidad(carrito.getCantidad() - 1);
-                carritoComprasService.addProducto(carrito);
+            if (carritoCompras.getCantidad() > 1) {
+                carritoCompras.setCantidad(carrito.getCantidad() - 1);
+                carritoComprasService.addProducto(carritoCompras);
             } else{
-                carritoComprasService.deleteProductoById(Long.valueOf(carrito.getProductos().getId()));
+                carritoComprasService.deleteProductoById(Long.valueOf(carrito.getId()));
             }
 
         }
