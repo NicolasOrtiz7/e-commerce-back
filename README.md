@@ -1,4 +1,4 @@
-# E-Commerce
+# E-commerce
 Proyecto e-commerce. Tienda de productos con Angular y Spring boot
 
 ## Descripción
