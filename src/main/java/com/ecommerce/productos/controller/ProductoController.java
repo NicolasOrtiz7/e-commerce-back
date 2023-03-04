@@ -88,7 +88,6 @@ public class ProductoController {
         productoNuevo.setNombre(producto.getNombre());
         productoNuevo.setDescripcion(producto.getDescripcion());
         productoNuevo.setImagen(producto.getImagen());
-        productoNuevo.setCantidad(producto.getCantidad());
         productoNuevo.setPrecio(producto.getPrecio());
         productoNuevo.setCategoria(producto.getCategoria());
 
