@@ -18,6 +18,6 @@ public class Categoria {
 
     private String nombre;
 
-    private String imagen;
+    private String imagen = "no-image.png";
 
 }
