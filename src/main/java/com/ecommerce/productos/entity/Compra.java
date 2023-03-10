@@ -28,5 +28,5 @@ public class Compra {
     @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<DetallesCompra> detallesCompra = new HashSet<>();
 
-    private Date fechaCompra;
+    private Date fechaCompra = new Date();
 }

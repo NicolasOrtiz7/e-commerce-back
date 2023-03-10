@@ -1,5 +1,6 @@
 package com.ecommerce.productos.service.impl;
 
+import com.ecommerce.productos.entity.CarritoCompras;
 import com.ecommerce.productos.entity.Compra;
 import com.ecommerce.productos.repository.CompraRepository;
 import com.ecommerce.productos.service.CompraService;
@@ -23,4 +24,10 @@ public class CompraServiceImpl implements CompraService {
     public List<Compra> buscarUsuarioCompras(Integer id) {
         return repository.findAllByUsuario(id);
     }
+
+    @Override
+    public void saveCompra(Compra compra) {
+        repository.save(compra);
+    }
+
 }
