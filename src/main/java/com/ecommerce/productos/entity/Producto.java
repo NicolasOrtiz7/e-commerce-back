@@ -21,10 +21,7 @@ public class Producto {
     private String descripcion;
     private String imagen = "no-image.png";
     private double precio;
-
-    /* @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario; */
+    private Integer destacado = 0;
 
     @OneToOne()
     @JoinColumn(name = "categoria_id")
