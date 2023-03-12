@@ -44,6 +44,12 @@ public class ProductoController {
         return new ResponseEntity(producto, HttpStatus.OK);
     }
 
+    @GetMapping("/filtrar")
+    public List<Producto> findByKeyword(@RequestParam("search") String keyword){
+        List<Producto> productos = productoService.findByNombreContaining(keyword);
+        return productos;
+    }
+
     // Devuelve todos los productos
     @GetMapping("/todos")
     public List<Producto> getProductos(){
@@ -95,8 +101,6 @@ public class ProductoController {
 
         return new ResponseEntity(HttpStatus.OK);
     }
-
-
 
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Integer id){

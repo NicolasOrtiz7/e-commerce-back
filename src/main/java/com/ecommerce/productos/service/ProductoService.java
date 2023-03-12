@@ -12,6 +12,8 @@ public interface ProductoService {
 
     public Optional<Producto> findByProductoId(Integer id);
 
+    public List<Producto> findByNombreContaining(String nombre);
+
     public List<Producto> findByCategoriaNombre(String nombreCategoria);
 
     public List<Producto> findByCategoriaNombreOrderByNombreAsc(String nombreCategoria);

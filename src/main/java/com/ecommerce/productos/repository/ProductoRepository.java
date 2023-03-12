@@ -25,5 +25,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
 
     List<Producto> findByCategoriaNombreOrderByPrecioDesc(String nombreCategoria);
 
+    List<Producto> findByNombreContaining(String nombre);
+
 
 }

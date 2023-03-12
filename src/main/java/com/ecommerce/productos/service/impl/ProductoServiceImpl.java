@@ -26,6 +26,11 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
+    public List<Producto> findByNombreContaining(String nombre){
+        return repository.findByNombreContaining(nombre);
+    }
+
+    @Override
     public List<Producto> findByCategoriaNombre(String nombreCategoria) {
         return repository.findByCategoriaNombre(nombreCategoria);
     }

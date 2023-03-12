@@ -37,9 +37,16 @@ public class ComprasController {
     }
 
     @GetMapping("/listar/{id}")
-    public List<DetallesCompra> getUsuarioCompras(){
+    public List<DetallesCompra> getUsuarioCompras(@PathVariable Integer id){
         // Arreglar este metodo
-        List<DetallesCompra> compras = detallesCompraService.getDetallesCompra();
+        List<DetallesCompra> compras = detallesCompraService.findByCompraUsuarioId(id);
+        return compras;
+    }
+
+    // Filtrar enviando id o username
+    @GetMapping("/filtrar")
+    public List<DetallesCompra> getUsuarioComprass(Long id, String username){
+        List<DetallesCompra> compras = detallesCompraService.findByUserIdOrUsername(id, username);
         return compras;
     }
 
@@ -63,6 +70,7 @@ public class ComprasController {
             detallesCompraService.saveDetallesCompra(detalles);
         }
     }
+
 
 
 }

@@ -1,10 +1,12 @@
 package com.ecommerce.productos.service.impl;
 
 import com.ecommerce.productos.entity.CarritoCompras;
+import com.ecommerce.productos.entity.Compra;
 import com.ecommerce.productos.entity.DetallesCompra;
 import com.ecommerce.productos.repository.DetallesCompraRepository;
 import com.ecommerce.productos.service.DetallesCompraService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,5 +37,15 @@ public class DetallesCompraImpl implements DetallesCompraService {
     @Override
     public void saveDetallesCompra(DetallesCompra detalles) {
         repository.save(detalles);
+    }
+
+    @Override
+    public List<DetallesCompra> findByCompraUsuarioId(Integer id){
+        return repository.findByCompraUsuarioId(id);
+    }
+
+    public List<DetallesCompra> findByUserIdOrUsername(@Param("id") Long id,
+                                               @Param("username") String username){
+        return repository.findByUserIdOrUsername(id, username);
     }
 }
