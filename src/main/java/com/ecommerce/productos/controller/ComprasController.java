@@ -8,8 +8,8 @@ import com.ecommerce.productos.service.DetallesCompraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/compras")
@@ -38,6 +38,7 @@ public class ComprasController {
 
     @GetMapping("/listar/{id}")
     public List<DetallesCompra> getUsuarioCompras(){
+        // Arreglar este metodo
         List<DetallesCompra> compras = detallesCompraService.getDetallesCompra();
         return compras;
     }
@@ -45,14 +46,12 @@ public class ComprasController {
     @PostMapping("/save")
     public void saveCompra(@RequestBody CarritoCompras[] carritoCompras){
 
-
+        // Cada vez que se hace una compra, debería guardarse solo una fila en la bbdd,
+        // pero se guarda una por cada producto, corregir
 
         for(CarritoCompras a:carritoCompras){
-
             DetallesCompra detalles = new DetallesCompra();
             Compra compra = new Compra();
-
-            System.out.println(a);
 
             detalles.setCantidad(a.getCantidad());
             detalles.setProducto(a.getProductos());
@@ -60,22 +59,9 @@ public class ComprasController {
             compra.setUsuario(a.getUsuario());
             detalles.setCompra(compra);
 
-
             compraService.saveCompra(compra);
             detallesCompraService.saveDetallesCompra(detalles);
-
         }
-
-
-        /*detalles.setCantidad(carritoCompras.getCantidad());
-        detalles.setProducto(carritoCompras.getProductos());
-
-        compra.setUsuario(carritoCompras.getUsuario());*/
-
-      /*  detalles.setCompra(compra);*/
-/*
-        compraService.saveCompra(compra);
-        detallesCompraService.saveDetallesCompra(detalles);*/
     }
 
 

@@ -25,4 +25,7 @@ public class DetallesCompra {
     private Producto producto;
 
     private Integer cantidad;
+
+    // Falta agregar el precio total de la compra
+
 }

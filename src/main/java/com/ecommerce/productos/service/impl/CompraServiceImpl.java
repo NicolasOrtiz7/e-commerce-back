@@ -16,12 +16,12 @@ public class CompraServiceImpl implements CompraService {
     private CompraRepository repository;
 
     @Override
-    public List<Compra> buscarCompras() {
+    public List<Compra> findCompras() {
         return repository.findAll();
     }
 
     @Override
-    public List<Compra> buscarUsuarioCompras(Integer id) {
+    public List<Compra> findUsuarioCompras(Integer id) {
         return repository.findAllByUsuario(id);
     }
 

@@ -118,7 +118,7 @@ public class UsuarioController {
 
     @GetMapping("/{id}/compras")
     public List<Compra> findUsuarioCompras(@PathVariable Integer id){
-        return compraService.buscarUsuarioCompras(id);
+        return compraService.findUsuarioCompras(id);
     }
 
    /* @GetMapping("/{id}/compras")

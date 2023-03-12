@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface CompraService {
 
-    public List<Compra> buscarCompras();
+    public List<Compra> findCompras();
 
-    public List<Compra> buscarUsuarioCompras(Integer id);
+    public List<Compra> findUsuarioCompras(Integer id);
 
     public void saveCompra(Compra compra);
 
