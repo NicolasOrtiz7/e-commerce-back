@@ -19,8 +19,8 @@ public interface DetallesCompraRepository extends JpaRepository<DetallesCompra, 
 
     List<DetallesCompra> findByCompraUsuarioId(Integer id);
 
-    @Query("SELECT c FROM DetallesCompra c WHERE c.compra.usuario.id = :id OR c.compra.usuario.username = :username")
-    List<DetallesCompra> findByUserIdOrUsername(@Param("id") Long id, @Param("username") String username);
+    @Query("SELECT c FROM DetallesCompra c WHERE c.compra.usuario.username = :keyword OR c.compra.usuario.id = :keyword")
+    List<DetallesCompra> findByUserIdOrUsername(@Param("keyword") String keyword);
 
 
 }

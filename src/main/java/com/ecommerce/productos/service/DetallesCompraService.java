@@ -20,6 +20,6 @@ public interface DetallesCompraService {
 
     public List<DetallesCompra> findByCompraUsuarioId(Integer id);
 
-    public List<DetallesCompra> findByUserIdOrUsername(@Param("id") Long id, @Param("username") String username);
+    public List<DetallesCompra> findByUserIdOrUsername(@Param("keyword") String keyword );
 
 }

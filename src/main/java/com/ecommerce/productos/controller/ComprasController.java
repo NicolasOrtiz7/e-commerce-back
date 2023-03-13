@@ -6,6 +6,7 @@ import com.ecommerce.productos.entity.DetallesCompra;
 import com.ecommerce.productos.service.CompraService;
 import com.ecommerce.productos.service.DetallesCompraService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,8 +46,8 @@ public class ComprasController {
 
     // Filtrar enviando id o username
     @GetMapping("/filtrar")
-    public List<DetallesCompra> getUsuarioComprass(Long id, String username){
-        List<DetallesCompra> compras = detallesCompraService.findByUserIdOrUsername(id, username);
+    public List<DetallesCompra> getUsuarioComprass(@Param("keyword") String keyword){
+        List<DetallesCompra> compras = detallesCompraService.findByUserIdOrUsername(keyword);
         return compras;
     }
 

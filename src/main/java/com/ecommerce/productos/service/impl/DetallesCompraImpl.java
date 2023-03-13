@@ -44,8 +44,7 @@ public class DetallesCompraImpl implements DetallesCompraService {
         return repository.findByCompraUsuarioId(id);
     }
 
-    public List<DetallesCompra> findByUserIdOrUsername(@Param("id") Long id,
-                                               @Param("username") String username){
-        return repository.findByUserIdOrUsername(id, username);
+    public List<DetallesCompra> findByUserIdOrUsername(@Param("keyword") String keyword){
+        return repository.findByUserIdOrUsername(keyword);
     }
 }
