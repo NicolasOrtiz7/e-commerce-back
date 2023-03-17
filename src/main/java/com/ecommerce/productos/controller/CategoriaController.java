@@ -36,7 +36,7 @@ public class CategoriaController {
     public void updateCategoria(@PathVariable Integer id, @RequestBody Categoria categoria){
         Optional<Categoria> categoria1 = categoriaService.findById(id);
 
-        if (!categoria1.isPresent()){
+        if (categoria1.isEmpty()){
             throw new UsuarioNotFound("No existe esa categoria"); // cambiar el throw
         }
         categoria1.get().setId(categoria.getId());
