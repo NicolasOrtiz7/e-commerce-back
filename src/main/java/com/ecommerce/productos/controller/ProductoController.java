@@ -22,9 +22,16 @@ public class ProductoController {
     /*
 
     CRUD DE PRODUCTOS
-    1. Listar productos
-    2. Buscar productos por id (barra busqueda)
-    3. Buscar productos por categoria
+    1. Sin autorización
+        - Listar todos
+        - Listar por ID
+        - Listar por nombre
+        - Listar por categoría
+
+    2. Requiere autorización (implementar)
+        - Crear nuevo
+        - Editar producto
+        - Eliminar producto
 
      */
 
@@ -73,13 +80,13 @@ public class ProductoController {
     }
 
 
-    @PostMapping("/nuevo")
+    @PostMapping("/admin/nuevo")
     public ResponseEntity<Producto> create(@RequestBody Producto producto){
         productoService.saveProducto(producto);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @PutMapping("/edit/{id}")
+    @PutMapping("/admin/edit/{id}")
     public ResponseEntity<Producto> update(@RequestBody Producto producto, @PathVariable Integer id){
 
         Optional<Producto> producto1 = productoService.findByProductoId(id);
@@ -102,7 +109,7 @@ public class ProductoController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/admin/delete/{id}")
     public void delete(@PathVariable Integer id){
         productoService.deleteProducto(id);
     }

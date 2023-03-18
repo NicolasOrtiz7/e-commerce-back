@@ -18,6 +18,17 @@ public class ComprasController {
 
     /*
 
+    Compras
+    1. Sin autorización
+        - Ver mis propias compras (implementar)
+
+    2. Requiere autorización (implementar)
+        - Todos los métodos
+
+     */
+
+    /*
+
     ESTE CONTROLLER LO PUEDO HACER EN EL PRODUCTO CONTROLLER
 
 
@@ -39,7 +50,7 @@ public class ComprasController {
 
     @GetMapping("/listar/{id}")
     public List<DetallesCompra> getUsuarioCompras(@PathVariable Integer id){
-        // Arreglar este metodo
+        // Arreglar este metodo. CREO que este ya no lo uso
         List<DetallesCompra> compras = detallesCompraService.findByCompraUsuarioId(id);
         return compras;
     }

@@ -26,6 +26,21 @@ public class UsuarioController {
 
     /*
 
+    CRUD DE USUARIOS
+    1. Sin autorización
+        - Editar contraseña y datos
+
+    2. Requiere autorización (implementar)
+        - Eliminar
+
+    3. Verificar
+        -
+
+     */
+
+
+    /*
+
     1. CRUD. listar usuarios --
     2. Poder asignar un rol desde el crud
     3. Poder ver sus compras
@@ -52,7 +67,7 @@ public class UsuarioController {
 
     */
 
-    @GetMapping("/listar")
+    @GetMapping("/admin/listar")
     public List<Usuario> findAll(){
         return usuarioService.buscarUsuarios();
     }
@@ -111,7 +126,7 @@ public class UsuarioController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/admin/delete/{id}")
     public void delete(@PathVariable Integer id){
         usuarioService.eliminarUsuario(id);
     }
@@ -129,7 +144,7 @@ public class UsuarioController {
 
     // Funciona pero no es necesario enviar el usuario completo, enviar solo el rol
     // podria ser peligroso porque se puede cambiar cualquier atributo desde la peticion
-    @PutMapping("/{id}/rol")
+    @PutMapping("/admin/{id}/rol")
     public ResponseEntity<Usuario> changeRol(@PathVariable Integer id, @RequestBody Usuario usuario){
         Optional<Usuario> usuario1 = usuarioService.buscarUsuarioId(id);
         if (!usuario1.isPresent()){
