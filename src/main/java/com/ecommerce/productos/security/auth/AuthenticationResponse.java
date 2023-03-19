@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class AuthenticationResponse {
 
   private String token;
+  private Integer userId; // este lo cree yo para enviar la id del usuario actual
 }

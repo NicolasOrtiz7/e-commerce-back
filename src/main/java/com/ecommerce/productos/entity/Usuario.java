@@ -1,5 +1,6 @@
 package com.ecommerce.productos.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,6 +36,7 @@ public class Usuario implements UserDetails {
     @JoinColumn(name = "rol_id")
     private Rol rol;
 
+    @JsonIgnore // Evita que se serialice y evita errores al hacer peticiones
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(rol.getNombre()));
@@ -71,10 +73,5 @@ public class Usuario implements UserDetails {
     }
 
 
-    /* @OneToMany(mappedBy = "usuario")
-    private List<Producto> productos;  ESTA YA NO SIRVE, NO DESCOMENTAR*/
-
-   /* @OneToMany(mappedBy = "usuario")
-    private List<Compra> compras; // cambiar nombre a "ordenes"*/
 
 }

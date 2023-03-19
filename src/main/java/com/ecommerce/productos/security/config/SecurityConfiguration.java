@@ -43,7 +43,7 @@ public class SecurityConfiguration {
             .requestMatchers("/usuarios/admin/**").hasRole("admin")
             .requestMatchers("/usuarios/**").permitAll()
 
-            .anyRequest().authenticated()
+            .anyRequest().permitAll()
 
         .and()
           .sessionManagement()

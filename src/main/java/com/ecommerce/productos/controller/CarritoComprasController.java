@@ -32,6 +32,7 @@ public class CarritoComprasController {
 
     @PostMapping("/nuevo")
     public void addCarrito(@RequestBody CarritoCompras carrito){
+        System.out.println(carrito);
 
         Usuario usuario = carrito.getUsuario();
         Producto producto = carrito.getProductos();
