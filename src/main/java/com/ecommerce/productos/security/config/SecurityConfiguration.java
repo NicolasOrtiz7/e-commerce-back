@@ -29,18 +29,18 @@ public class SecurityConfiguration {
             .authorizeHttpRequests()
             .requestMatchers("/api/v1/auth/**").permitAll()
 
-            .requestMatchers("/productos/admin/**").hasRole("admin")
+            .requestMatchers("/productos/admin/**").hasRole("ADMIN")
             .requestMatchers("/productos/**").permitAll()
 
             .requestMatchers("/compras/mis-compras").authenticated()
-            .requestMatchers("/compras/**").hasRole("admin")
+            .requestMatchers("/compras/**").hasRole("ADMIN")
 
-            .requestMatchers("/categorias/admin/**").hasRole("admin")
+            .requestMatchers("/categorias/admin/**").hasRole("ADMIN")
             .requestMatchers("/categorias/**").permitAll()
 
             .requestMatchers("/carrito/**").permitAll()
 
-            .requestMatchers("/usuarios/admin/**").hasRole("admin")
+            .requestMatchers("/usuarios/admin/**").hasRole("ADMIN")
             .requestMatchers("/usuarios/**").permitAll()
 
             .anyRequest().permitAll()
