@@ -1,7 +1,5 @@
 package com.ecommerce.productos.service;
 
-import com.ecommerce.productos.entity.CarritoCompras;
-import com.ecommerce.productos.entity.Compra;
 import com.ecommerce.productos.entity.DetallesCompra;
 import org.springframework.data.repository.query.Param;
 
@@ -10,16 +8,16 @@ import java.util.Optional;
 
 public interface DetallesCompraService {
 
-    public Optional<DetallesCompra> detallesCompra(Integer id);
+    Optional<DetallesCompra> detallesCompra(Integer id);
 
-    public List<DetallesCompra> getDetallesCompra();
+    List<DetallesCompra> getDetallesCompra();
 
-    public Optional<List<DetallesCompra>> getUsuarioCompras(Integer id);
+    Optional<List<DetallesCompra>> getUsuarioCompras(Integer id);
 
-    public void saveDetallesCompra(DetallesCompra detalles);
+    void saveDetallesCompra(DetallesCompra detalles);
 
-    public List<DetallesCompra> findByCompraUsuarioId(Integer id);
+    List<DetallesCompra> findByCompraUsuarioId(Integer id);
 
-    public List<DetallesCompra> findByUserIdOrUsername(@Param("keyword") String keyword );
+    List<DetallesCompra> findByUserIdOrUsername(@Param("keyword") String keyword );
 
 }

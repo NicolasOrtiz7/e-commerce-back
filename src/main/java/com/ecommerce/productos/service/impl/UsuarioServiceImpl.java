@@ -16,27 +16,27 @@ public class UsuarioServiceImpl implements UsuarioService {
     private UsuarioRepository repository;
 
     @Override
-    public List<Usuario> buscarUsuarios() {
+    public List<Usuario> findUsuarios() {
         return repository.findAll();
     }
 
     @Override
-    public Optional<Usuario> buscarUsuarioId(Integer id) {
+    public Optional<Usuario> findUsuarioById(Integer id) {
         return repository.findById(id);
     }
 
     @Override
-    public void crearUsuario(Usuario usuario) {
+    public void saveUsuario(Usuario usuario) {
         repository.save(usuario);
     }
 
     @Override
-    public void editarUsuario(Usuario usuario) {
+    public void updateUsuario(Usuario usuario) {
         repository.save(usuario);
     }
 
     @Override
-    public void eliminarUsuario(Integer id) {
+    public void deleteUsuario(Integer id) {
         repository.deleteById(id);
     }
 }

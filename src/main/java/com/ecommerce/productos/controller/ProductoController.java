@@ -41,11 +41,11 @@ public class ProductoController {
     }
 
     @GetMapping("/listar/{id}")
-    public ResponseEntity<Producto> findById(@PathVariable Integer id){
+    public ResponseEntity findById(@PathVariable Integer id){
 
         Optional<Producto> producto = productoService.findByProductoId(id);
 
-        if (!producto.isPresent()){
+        if (producto.isEmpty()){
             throw new UsuarioNotFound("El producto con id: " + id + " no existe.");
         }
         return new ResponseEntity(producto, HttpStatus.OK);
@@ -53,8 +53,7 @@ public class ProductoController {
 
     @GetMapping("/filtrar")
     public List<Producto> findByKeyword(@RequestParam("search") String keyword){
-        List<Producto> productos = productoService.findByNombreContaining(keyword);
-        return productos;
+        return productoService.findByNombreContaining(keyword);
     }
 
     // Devuelve todos los productos
@@ -69,29 +68,29 @@ public class ProductoController {
             @RequestParam("categoria") String nombreCategoria,
             @RequestParam(required = false, defaultValue = "ASC") String orden) {
 
-        switch (orden){
-            case "ASC": return productoService.findByCategoriaNombreOrderByNombreAsc(nombreCategoria);
-            case "DESC": return productoService.findByCategoriaNombreOrderByNombreDesc(nombreCategoria);
-            case "BARATO": return productoService.findByCategoriaNombreOrderByPrecioAsc(nombreCategoria);
-            case "CARO": return productoService.findByCategoriaNombreOrderByPrecioDesc(nombreCategoria);
-        }
+        return switch (orden) {
+            case "ASC" -> productoService.findByCategoriaNombreOrderByNombreAsc(nombreCategoria);
+            case "DESC" -> productoService.findByCategoriaNombreOrderByNombreDesc(nombreCategoria);
+            case "BARATO" -> productoService.findByCategoriaNombreOrderByPrecioAsc(nombreCategoria);
+            case "CARO" -> productoService.findByCategoriaNombreOrderByPrecioDesc(nombreCategoria);
+            default -> productoService.findByCategoriaNombre(nombreCategoria);
+        };
 
-        return productoService.findByCategoriaNombre(nombreCategoria);
     }
 
 
     @PostMapping("/admin/nuevo")
-    public ResponseEntity<Producto> create(@RequestBody Producto producto){
+    public ResponseEntity create(@RequestBody Producto producto){
         productoService.saveProducto(producto);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PutMapping("/admin/edit/{id}")
-    public ResponseEntity<Producto> update(@RequestBody Producto producto, @PathVariable Integer id){
+    public ResponseEntity update(@RequestBody Producto producto, @PathVariable Integer id){
 
         Optional<Producto> producto1 = productoService.findByProductoId(id);
 
-        if (!producto1.isPresent()){
+        if (producto1.isEmpty()){
             throw new UsuarioNotFound("No existe el Producto con id: " + id);
         }
 

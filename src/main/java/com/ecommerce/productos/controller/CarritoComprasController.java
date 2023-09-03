@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/carrito")
@@ -72,7 +71,8 @@ public class CarritoComprasController {
                 carritoCompras.setCantidad(carrito.getCantidad() - 1);
                 carritoComprasService.addProducto(carritoCompras);
             } else{
-                carritoComprasService.deleteProductoById(Long.valueOf(carrito.getId()));
+                carritoComprasService.deleteProductoById(carrito.getId());
+                //carritoComprasService.deleteProductoById(Long.valueOf(carrito.getId()));
             }
 
         }

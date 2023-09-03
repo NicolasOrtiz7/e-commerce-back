@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface RolService {
 
-    public List<Rol> buscarRoles();
+    List<Rol> findRoles();
 
 }

@@ -1,23 +1,21 @@
 package com.ecommerce.productos.service;
 
 import com.ecommerce.productos.entity.*;
-import com.ecommerce.productos.repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UsuarioService {
 
-    public List<Usuario> buscarUsuarios();
+    List<Usuario> findUsuarios();
 
-    public Optional<Usuario> buscarUsuarioId(Integer id);
+    Optional<Usuario> findUsuarioById(Integer id);
 
-    public void crearUsuario(Usuario usuario);
+    void saveUsuario(Usuario usuario);
 
-    public void editarUsuario(Usuario usuario);
+    void updateUsuario(Usuario usuario);
 
-    public void eliminarUsuario(Integer id);
+    void deleteUsuario(Integer id);
 
 
 }

@@ -44,14 +44,18 @@ public class AuthenticationService {
             request.getPassword()
         )
     );
+
     var user = repository.findOneByEmail(request.getEmail())
         .orElseThrow();
+
     var jwtToken = jwtService.generateToken((UserDetails) user);
+
     revokeAllUserTokens(user);
     saveUserToken(user, jwtToken);
+
     return AuthenticationResponse.builder()
         .token(jwtToken)
-        .userId(user.getId()) // este lo cree yo para enviar la id del usuario actual
+        .userId(user.getId())// este lo cree yo para enviar la id del usuario actual
         .build();
   }
 

@@ -1,6 +1,5 @@
 package com.ecommerce.productos.service.impl;
 
-import com.ecommerce.productos.entity.CarritoCompras;
 import com.ecommerce.productos.entity.Compra;
 import com.ecommerce.productos.repository.CompraRepository;
 import com.ecommerce.productos.service.CompraService;

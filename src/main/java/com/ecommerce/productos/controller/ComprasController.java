@@ -10,7 +10,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/compras")
@@ -44,22 +43,19 @@ public class ComprasController {
 
     @GetMapping("/listar")
     public List<DetallesCompra> getCompras(){
-        List<DetallesCompra> compras = detallesCompraService.getDetallesCompra();
-        return compras;
+        return detallesCompraService.getDetallesCompra();
     }
 
     @GetMapping("/listar/{id}")
     public List<DetallesCompra> getUsuarioCompras(@PathVariable Integer id){
-        // Arreglar este metodo. CREO que este ya no lo uso
-        List<DetallesCompra> compras = detallesCompraService.findByCompraUsuarioId(id);
-        return compras;
+        // Arreglar este metodo. CREO que este ya no lo uso (si lo uso, ver si conviene eliminar)
+        return detallesCompraService.findByCompraUsuarioId(id);
     }
 
     // Filtrar enviando id o username
     @GetMapping("/filtrar")
     public List<DetallesCompra> getUsuarioComprass(@Param("keyword") String keyword){
-        List<DetallesCompra> compras = detallesCompraService.findByUserIdOrUsername(keyword);
-        return compras;
+        return detallesCompraService.findByUserIdOrUsername(keyword);
     }
 
     @PostMapping("/save")

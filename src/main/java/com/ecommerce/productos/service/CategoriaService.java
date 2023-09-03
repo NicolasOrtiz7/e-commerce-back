@@ -7,14 +7,14 @@ import java.util.Optional;
 
 public interface CategoriaService {
 
-    public List<Categoria> findAllCategorias();
+    List<Categoria> findAllCategorias();
 
-    public List<Categoria> findByNombre(String name);
+    List<Categoria> findByNombre(String name);
 
-    public Optional<Categoria> findById(Integer id);
+    Optional<Categoria> findById(Integer id);
 
-    public void saveCategoria(Categoria categoria);
+    void saveCategoria(Categoria categoria);
 
-    public void deleteCategoria(Integer id);
+    void deleteCategoria(Integer id);
 
 }

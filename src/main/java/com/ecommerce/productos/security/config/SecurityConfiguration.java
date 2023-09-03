@@ -33,7 +33,7 @@ public class SecurityConfiguration {
             .requestMatchers("/productos/**").permitAll()
 
             .requestMatchers("/compras/mis-compras").authenticated()
-            .requestMatchers("/compras/**").hasRole("ADMIN")
+            .requestMatchers("/compras/**").hasRole("ADMIN") // da error si no es permitAll()
 
             .requestMatchers("/categorias/admin/**").hasRole("ADMIN")
             .requestMatchers("/categorias/**").permitAll()

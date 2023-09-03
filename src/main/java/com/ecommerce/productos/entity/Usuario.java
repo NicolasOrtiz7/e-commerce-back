@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -35,6 +34,9 @@ public class Usuario implements UserDetails {
     @OneToOne()
     @JoinColumn(name = "rol_id")
     private Rol rol;
+
+
+    // ======================================================================
 
     @JsonIgnore // Evita que se serialice y evita errores al hacer peticiones
     @Override
