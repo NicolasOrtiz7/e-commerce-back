@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 1 remeras
 2 pantalones
 3 buzos
@@ -54,3 +55,61 @@ INSERT INTO productos (cantidad, imagen, nombre, precio, categoria_id) VALUES (9
 
 
 
+=======
+1 remeras
+2 pantalones
+3 buzos
+4 camperas
+5 calzado
+6 gorros
+
+
+1. Primero crear roles
+===================== INSERT ROL ==================
+
+INSERT INTO `ecommerce2`.`roles` (`id`, `nombre`) VALUES ('1', 'ROLE_ADMIN');
+INSERT INTO `ecommerce2`.`roles` (`id`, `nombre`) VALUES ('2', 'ROLE_USER');
+
+
+2.
+===================== INSERT USUARIO ==================
+
+INSERT INTO `ecommerce2`.`usuario` (`id_usuario`, `direccion`, `email`, `nombre`, `password`, `telefono`, `username`, `rol_id`) VALUES ('1', 'calle falsa 123', 'email@gmail.com', 'Leo', '1234', '11223344', 'leomessi', '1');
+
+3.
+===================== INSERT CATEGORIAS ==================
+
+INSERT INTO categorias (id,nombre) VALUES (1, 'Camisetas');
+INSERT INTO categorias (id,nombre) VALUES (2, 'Pantalones');
+INSERT INTO categorias (id,nombre) VALUES (3, 'Buzos');
+INSERT INTO categorias (id,nombre) VALUES (4, 'Camperas');
+INSERT INTO categorias (id,nombre) VALUES (5, 'Calzado');
+INSERT INTO categorias (id,nombre) VALUES (6, 'Gorros');
+
+4.
+===================== INSERT PRODUCTO ==================
+
+INSERT INTO productos (cantidad, descripcion, imagen, nombre, precio, categoria_id) VALUES (12, 'Camiseta Selección Argentina Qatar 2022','no-image.png', 'Camiseta Argentina 2022', 123, 1);
+INSERT INTO productos (cantidad, descripcion, imagen, nombre, precio, categoria_id) VALUES (141, 'Camiseta original de Boca, año 2021','no-image.png', 'Camiseta Boca Jrs.', 1223, 1);
+INSERT INTO productos (cantidad, descripcion, imagen, nombre, precio, categoria_id) VALUES (12, 'Pantalón Argentina mundial Qatar 2022','no-image.png', 'Pantalón Selección', 223, 2);
+INSERT INTO productos (cantidad, descripcion, imagen, nombre, precio, categoria_id) VALUES (21, 'Campera Boca Jrs. 2022. Tipo de tela: ','no-image.png', 'Campera de Boca', 3, 4);
+INSERT INTO productos (cantidad, descripcion, imagen, nombre, precio, categoria_id) VALUES (45, 'Edición especial Nike colaboración','no-image.png', 'Zapatillas Nike', 1234, 5);
+INSERT INTO productos (cantidad, descripcion, imagen, nombre, precio, categoria_id) VALUES (2, 'Zapatillas Adidas año 2021','no-image.png', 'Zapatillas Adidas', 12342, 5);
+
+Más productos pero sin descripcion
+INSERT INTO productos (cantidad, imagen, nombre, precio, categoria_id) VALUES (5,'no-image.png', 'Remera roja', 123, 1);
+INSERT INTO productos (cantidad, imagen, nombre, precio, categoria_id) VALUES (5,'no-image.png', 'Remera azul', 213, 1);
+INSERT INTO productos (cantidad, imagen, nombre, precio, categoria_id) VALUES (51,'no-image.png', 'Remera verde', 13, 1);
+INSERT INTO productos (cantidad, imagen, nombre, precio, categoria_id) VALUES (2,'no-image.png', 'Jean negro', 123, 2);
+INSERT INTO productos (cantidad, imagen, nombre, precio, categoria_id) VALUES (19,'no-image.png', 'cargo verde', 213, 2);
+INSERT INTO productos (cantidad, imagen, nombre, precio, categoria_id) VALUES (6,'no-image.png', 'deportivo', 13, 2);
+INSERT INTO productos (cantidad, imagen, nombre, precio, categoria_id) VALUES (12,'no-image.png', 'cuero', 123, 3);
+INSERT INTO productos (cantidad, imagen, nombre, precio, categoria_id) VALUES (9,'no-image.png', 'campera jean', 21, 3);
+INSERT INTO productos (cantidad, imagen, nombre, precio, categoria_id) VALUES (12,'no-image.png', 'zapatillas adidas', 123, 4);
+INSERT INTO productos (cantidad, imagen, nombre, precio, categoria_id) VALUES (9,'no-image.png', 'zapatillas nike', 21, 4);
+INSERT INTO productos (cantidad, imagen, nombre, precio, categoria_id) VALUES (12,'no-image.png', 'gorra adidas', 123, 6);
+INSERT INTO productos (cantidad, imagen, nombre, precio, categoria_id) VALUES (9,'no-image.png', 'gorra nike', 21, 6);
+
+
+
+>>>>>>> 96a0e0b120b3a6150fc340122a1d43059a5db6fc
