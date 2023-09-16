@@ -2,10 +2,9 @@
 Proyecto e-commerce. Tienda de productos con Angular y Spring boot
 
 ## Importante
-- La seguridad está implementada en la rama test-seguridad pero no está lista al 100%
+- La seguridad no está lista al 100%
 - Falta implementar la subida de imágenes
 - Faltan implementar las validaciones
-- El código de la rama main no es el mejor y falta hacer limpieza, en la rama test-seguridad corregí varias cosas
 
 ## Descripción
 
