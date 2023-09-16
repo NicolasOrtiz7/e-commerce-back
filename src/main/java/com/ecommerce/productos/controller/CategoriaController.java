@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 /*
-
     CRUD DE CATEGORIAS
     1. Sin autorización
         - Listar todos
@@ -21,9 +20,7 @@ import java.util.Optional;
         - Crear nueva
         - Editar categoría
         - Eliminar categoría
-
      */
-
 
 @RestController
 @RequestMapping("/categorias")
@@ -50,16 +47,15 @@ public class CategoriaController {
 
     @PutMapping("/admin/editar/{id}")
     public void updateCategoria(@PathVariable Integer id, @RequestBody Categoria categoria){
-        Optional<Categoria> categoria1 = categoriaService.findById(id);
 
-        if (categoria1.isEmpty()){
-            throw new UsuarioNotFound("No existe esa categoria"); // cambiar el throw
+        Optional<Categoria> categoriaExists = categoriaService.findById(id);
+
+        if (categoriaExists.isEmpty()){
+            throw new UsuarioNotFound("No existe esa categoría"); // cambiar el throw
         }
-        categoria1.get().setId(categoria.getId());
-        categoria1.get().setNombre(categoria.getNombre());
-        categoria1.get().setImagen(categoria.getImagen());
+        categoria.setId(id);
 
-        categoriaService.saveCategoria(categoria1.get());
+        categoriaService.saveCategoria(categoria);
     }
 
 

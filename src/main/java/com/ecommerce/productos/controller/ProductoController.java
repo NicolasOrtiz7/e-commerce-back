@@ -16,11 +16,7 @@ import java.util.Optional;
 @RequestMapping("/productos")
 public class ProductoController {
 
-    @Autowired
-    private ProductoServiceImpl productoService;
-
     /*
-
     CRUD DE PRODUCTOS
     1. Sin autorización
         - Listar todos
@@ -32,8 +28,10 @@ public class ProductoController {
         - Crear nuevo
         - Editar producto
         - Eliminar producto
-
      */
+
+    @Autowired
+    private ProductoServiceImpl productoService;
 
     @GetMapping("/listar")
     public List<Producto> findAll(){
@@ -41,14 +39,14 @@ public class ProductoController {
     }
 
     @GetMapping("/listar/{id}")
-    public ResponseEntity findById(@PathVariable Integer id){
+    public ResponseEntity<Optional<Producto>> findById(@PathVariable Integer id){
 
         Optional<Producto> producto = productoService.findByProductoId(id);
 
         if (producto.isEmpty()){
             throw new UsuarioNotFound("El producto con id: " + id + " no existe.");
         }
-        return new ResponseEntity(producto, HttpStatus.OK);
+        return new ResponseEntity<>(producto, HttpStatus.OK);
     }
 
     @GetMapping("/filtrar")
@@ -80,32 +78,25 @@ public class ProductoController {
 
 
     @PostMapping("/admin/nuevo")
-    public ResponseEntity create(@RequestBody Producto producto){
+    public ResponseEntity<Producto> create(@RequestBody Producto producto){
         productoService.saveProducto(producto);
-        return new ResponseEntity(HttpStatus.CREATED);
+       return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/admin/edit/{id}")
-    public ResponseEntity update(@RequestBody Producto producto, @PathVariable Integer id){
+    public ResponseEntity<Producto> update(@PathVariable Integer id, @RequestBody Producto producto){
 
-        Optional<Producto> producto1 = productoService.findByProductoId(id);
+        Optional<Producto> productoExists = productoService.findByProductoId(id);
 
-        if (producto1.isEmpty()){
+        if (productoExists.isEmpty()){
             throw new UsuarioNotFound("No existe el Producto con id: " + id);
+            // cambiar este error por uno propio
         }
 
-        Producto productoNuevo = producto1.get();
-        productoNuevo.setId(producto1.get().getId());
+        producto.setId(id);
+        productoService.updateProducto(producto);
 
-        productoNuevo.setNombre(producto.getNombre());
-        productoNuevo.setDescripcion(producto.getDescripcion());
-        productoNuevo.setImagen(producto.getImagen());
-        productoNuevo.setPrecio(producto.getPrecio());
-        productoNuevo.setCategoria(producto.getCategoria());
-
-        productoService.updateProducto(productoNuevo);
-
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/admin/delete/{id}")

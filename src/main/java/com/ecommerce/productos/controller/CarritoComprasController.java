@@ -23,7 +23,7 @@ public class CarritoComprasController {
         return carritoComprasService.findAll();
     }
 
-    // Listar un carrito por el id del usuario, solo muestra el carrito
+    // Listar un carrito por el ID del usuario, solo muestra el carrito
     @GetMapping("/listar/{id}")
     public List<CarritoCompras> getCarritoId(@PathVariable Long id){
         return carritoComprasService.findByUsuarioId(id);
@@ -31,7 +31,6 @@ public class CarritoComprasController {
 
     @PostMapping("/nuevo")
     public void addCarrito(@RequestBody CarritoCompras carrito){
-        System.out.println(carrito);
 
         Usuario usuario = carrito.getUsuario();
         Producto producto = carrito.getProductos();
@@ -65,7 +64,7 @@ public class CarritoComprasController {
         CarritoCompras carritoCompras = carritoComprasService
                 .findByUsuarioAndProducto(usuario, producto);
 
-        // Si existe y la cantidad es mayor que 1, le resta 1. Si la cantidad de menos de 1, lo elimina
+        // Si existe y la cantidad es mayor que 1, le resta 1. Si la cantidad es menos de 1, lo elimina
         if (carritoCompras != null){
             if (carritoCompras.getCantidad() > 1) {
                 carritoCompras.setCantidad(carrito.getCantidad() - 1);

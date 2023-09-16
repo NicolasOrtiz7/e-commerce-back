@@ -19,13 +19,7 @@ import java.util.Optional;
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
-    @Autowired
-    private UsuarioServiceImpl usuarioService;
-    @Autowired
-    private CompraServiceImpl compraService;
-
     /*
-
     CRUD DE USUARIOS
     1. Sin autorización
         - Editar contraseña y datos
@@ -35,9 +29,7 @@ public class UsuarioController {
 
     3. Verificar
         -
-
      */
-
 
     /*
 
@@ -52,7 +44,7 @@ public class UsuarioController {
 
     Testeados
     1. listar
-    2. nuevo (bien, el rol se puede enviar solo con id y sin nombre)
+    2. nuevo (bien, el rol se puede enviar solo con ID y sin nombre)
     3. list id
     4. delete
     5. edit/id
@@ -62,10 +54,14 @@ public class UsuarioController {
     - id/rol
 
     Testear
-    - compras/id  --> en ComprasRepository, recibe un id, pero deberia recibir un usuario.id
-
+    - compras/id  --> en ComprasRepository, recibe un ID, pero debería recibir un usuario.id
 
     */
+
+    @Autowired
+    private UsuarioServiceImpl usuarioService;
+    @Autowired
+    private CompraServiceImpl compraService;
 
     @GetMapping("/admin/listar")
     public List<Usuario> findAll(){
@@ -73,14 +69,14 @@ public class UsuarioController {
     }
 
     @GetMapping("/listar/{id}")
-    public ResponseEntity findById(@PathVariable Integer id){
+    public ResponseEntity<Optional<Usuario>> findById(@PathVariable Integer id){
 
-        Optional<Usuario> usuario = usuarioService.findUsuarioById(id);
+        Optional<Usuario> usuarioExists = usuarioService.findUsuarioById(id);
 
-        if (usuario.isEmpty()){
+        if (usuarioExists.isEmpty()){
             throw new UsuarioNotFound("El alumno con id: " + id + " no existe.");
         }
-        return new ResponseEntity(usuario, HttpStatus.OK);
+        return new ResponseEntity<>(usuarioExists, HttpStatus.OK);
     }
 
     @PostMapping("/nuevo")
@@ -90,7 +86,7 @@ public class UsuarioController {
         usuarioRol.setId(2);
         usuarioRol.setNombre("user");
 
-        // Valores por defecto al crear nuevo usuario (despues se puede modificar)
+        // Valores por defecto al crear nuevo usuario (después se puede modificar)
         usuario.setRol(usuarioRol);
        // usuario.setCompras(null);
 
@@ -99,27 +95,28 @@ public class UsuarioController {
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<Usuario> update(@RequestBody Usuario usuario, @PathVariable Integer id){
+    public ResponseEntity<Usuario> update(@PathVariable Integer id, @RequestBody Usuario usuario){
 
-        Optional<Usuario> usuario1 = usuarioService.findUsuarioById(id);
+        Optional<Usuario> usuarioExists = usuarioService.findUsuarioById(id);
 
-        if (usuario1.isEmpty()){
+        if (usuarioExists.isEmpty()){
             throw new UsuarioNotFound("No existe el usuario con id: " + id);
         }
-        Usuario usuarioNuevo = new Usuario();
 
-        // Atributos que no se pueden cambiar
-        usuarioNuevo.setId(usuario1.get().getId());
-        usuarioNuevo.setNombre(usuario.getNombre());
-        usuarioNuevo.setUsername(usuario.getUsername());
-       // usuarioNuevo.setCompras(usuario.getCompras());
-        usuarioNuevo.setPassword(usuario.getPassword()); // La pass se cambia desde otro lado
-        usuarioNuevo.setRol(usuario.getRol()); // El rol se cambia desde otro lado
+        Usuario usuarioNuevo = Usuario.builder()
+                // Atributos no modificables
+                .id(usuarioExists.get().getId())
+                .nombre(usuarioExists.get().getNombre())
+                .username(usuarioExists.get().getUsername())
+                .password(usuarioExists.get().getPassword()) // La pass se cambia desde otro lado
+                .rol(usuarioExists.get().getRol()) // El rol se cambia desde otro lado
 
-        // Atributos modificables
-        usuarioNuevo.setEmail(usuario.getEmail());
-        usuarioNuevo.setDireccion(usuario.getDireccion());
-        usuarioNuevo.setTelefono(usuario.getTelefono());
+                //Atributos modificables
+                .email(usuario.getEmail())
+                .direccion(usuario.getDireccion())
+                .telefono(usuario.getTelefono())
+
+                .build();
 
         usuarioService.updateUsuario(usuarioNuevo);
 
@@ -142,30 +139,34 @@ public class UsuarioController {
     } */
 
 
-    // Funciona pero no es necesario enviar el usuario completo, enviar solo el rol
-    // podria ser peligroso porque se puede cambiar cualquier atributo desde la peticion
+    // Funciona, pero no es necesario enviar el usuario completo, enviar solo el rol
+    // se puede cambiar cualquier atributo en la petición desde postman
     @PutMapping("/admin/{id}/rol")
     public ResponseEntity<Usuario> changeRol(@PathVariable Integer id, @RequestBody Usuario usuario){
-        Optional<Usuario> usuario1 = usuarioService.findUsuarioById(id);
-        if (usuario1.isEmpty()){
+        Optional<Usuario> usuarioExists = usuarioService.findUsuarioById(id);
+
+        if (usuarioExists.isEmpty()){
             throw new UsuarioNotFound("No existe un usuario con id: " + usuario.getId());
         }
-        usuario.setRol(usuario.getRol());
+        usuario.setId(id);
         usuarioService.updateUsuario(usuario);
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
-    // Funciona pero no es necesario enviar el usuario completo, enviar solo la password
-    // podria ser peligroso porque se puede cambiar cualquier atributo desde la peticion
+    // Funciona, pero no es necesario enviar el usuario completo, enviar solo el password
+    // se puede cambiar cualquier atributo en la petición desde postman
     @PutMapping("/{id}/password")
     public ResponseEntity<Usuario> changePassword(@PathVariable Integer id, @RequestBody Usuario usuario){
-        Optional<Usuario> usuario1 = usuarioService.findUsuarioById(usuario.getId());
-        if (usuario1.isEmpty()){
+        Optional<Usuario> usuarioExists = usuarioService.findUsuarioById(id);
+
+        if (usuarioExists.isEmpty()){
             throw new UsuarioNotFound("No existe un usuario con id: " + usuario.getId());
         }
-        usuario1.get().setPassword(usuario.getPassword());
-        usuarioService.updateUsuario(usuario1.get());
+        usuario.setId(id);
+        usuarioService.updateUsuario(usuario);
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

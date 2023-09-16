@@ -16,24 +16,18 @@ import java.util.List;
 public class ComprasController {
 
     /*
-
     Compras
     1. Sin autorización
         - Ver mis propias compras (implementar)
 
     2. Requiere autorización (implementar)
         - Todos los métodos
-
      */
-
     /*
-
     ESTE CONTROLLER LO PUEDO HACER EN EL PRODUCTO CONTROLLER
-
 
     1. Ver todas las compras
     2. Ver compras de un usuario (este lo hago en el usuario controller creo)
-
      */
 
     @Autowired
@@ -48,20 +42,20 @@ public class ComprasController {
 
     @GetMapping("/listar/{id}")
     public List<DetallesCompra> getUsuarioCompras(@PathVariable Integer id){
-        // Arreglar este metodo. CREO que este ya no lo uso (si lo uso, ver si conviene eliminar)
+        // Arreglar este método. CREO que este ya no lo uso (si lo uso, ver si conviene eliminar)
         return detallesCompraService.findByCompraUsuarioId(id);
     }
 
     // Filtrar enviando id o username
     @GetMapping("/filtrar")
-    public List<DetallesCompra> getUsuarioComprass(@Param("keyword") String keyword){
+    public List<DetallesCompra> getUsuarioCompras(@Param("keyword") String keyword){
         return detallesCompraService.findByUserIdOrUsername(keyword);
     }
 
     @PostMapping("/save")
     public void saveCompra(@RequestBody CarritoCompras[] carritoCompras){
 
-        // Cada vez que se hace una compra, debería guardarse solo una fila en la bbdd,
+        // Cada vez que se hace una compra, debería guardarse solo una fila en la base de datos,
         // pero se guarda una por cada producto, corregir
 
         for(CarritoCompras a:carritoCompras){
