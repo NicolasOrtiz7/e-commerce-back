@@ -2,6 +2,7 @@
 Proyecto e-commerce. Tienda de productos con Angular y Spring boot
 
 ## Importante
+- El proyecto no está terminado al 100%, faltan implementar algunas funciones y puede tener algunos errores
 - La seguridad no está lista al 100%
 - Falta implementar la subida de imágenes
 - Faltan implementar las validaciones
