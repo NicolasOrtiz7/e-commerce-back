@@ -6,6 +6,7 @@ Proyecto e-commerce. Tienda de productos con Angular y Spring boot
 - La seguridad no está lista al 100%
 - Falta implementar la subida de imágenes
 - Faltan implementar las validaciones
+- Tiene algunas malas prácticas (lógica de negocio dentro de controller, no devuelve HttpStatus, etc.) que estoy corrigiendo de a poco
 
 ## Descripción
 
