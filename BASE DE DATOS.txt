@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 1 remeras
 2 pantalones
 3 buzos
@@ -111,5 +111,3 @@ INSERT INTO productos (cantidad, imagen, nombre, precio, categoria_id) VALUES (1
 INSERT INTO productos (cantidad, imagen, nombre, precio, categoria_id) VALUES (9,'no-image.png', 'gorra nike', 21, 6);
 
 
-
->>>>>>> 96a0e0b120b3a6150fc340122a1d43059a5db6fc
