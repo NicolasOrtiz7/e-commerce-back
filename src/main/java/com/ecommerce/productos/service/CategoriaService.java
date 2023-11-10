@@ -13,8 +13,10 @@ public interface CategoriaService {
 
     Optional<Categoria> findById(Integer id);
 
-    void saveCategoria(Categoria categoria);
+    Categoria saveCategoria(Categoria categoria);
 
-    void deleteCategoria(Integer id);
+    Categoria updateCategoria(Integer id, Categoria categoria);
+
+    Categoria deleteCategoria(Integer id);
 
 }

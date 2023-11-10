@@ -5,6 +5,8 @@ import com.ecommerce.productos.entity.Categoria;
 import com.ecommerce.productos.exception.UsuarioNotFound;
 import com.ecommerce.productos.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,37 +33,28 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @GetMapping("/listar")
-    public List<Categoria> getCategorias(){
-        return categoriaService.findAllCategorias();
+    public ResponseEntity<List<Categoria>> getCategorias(){
+        return new ResponseEntity<>(categoriaService.findAllCategorias(), HttpStatus.OK);
     }
     @GetMapping("/listar/{id}")
-    public Optional<Categoria> getCategorias(@PathVariable Integer id){
-
-        return categoriaService.findById(id);
+    public ResponseEntity<Optional<Categoria>> getCategorias(@PathVariable Integer id){
+        return new ResponseEntity<>(categoriaService.findById(id), HttpStatus.OK);
     }
 
     @PostMapping("/admin/nuevo")
-    public void saveCategoria(@RequestBody Categoria categoria){
-        categoriaService.saveCategoria(categoria);
+    public ResponseEntity<Categoria> saveCategoria(@RequestBody Categoria categoria){
+        return new ResponseEntity<>(categoriaService.saveCategoria(categoria), HttpStatus.CREATED);
     }
 
     @PutMapping("/admin/editar/{id}")
-    public void updateCategoria(@PathVariable Integer id, @RequestBody Categoria categoria){
-
-        Optional<Categoria> categoriaExists = categoriaService.findById(id);
-
-        if (categoriaExists.isEmpty()){
-            throw new UsuarioNotFound("No existe esa categoría"); // cambiar el throw
-        }
-        categoria.setId(id);
-
-        categoriaService.saveCategoria(categoria);
+    public ResponseEntity<Categoria> updateCategoria(@PathVariable Integer id, @RequestBody Categoria categoria){
+        return new ResponseEntity<>(categoriaService.updateCategoria(id, categoria), HttpStatus.OK);
     }
 
 
     @DeleteMapping("/admin/eliminar/{id}")
-    public void deleteCategoria(@PathVariable Integer id){
-        categoriaService.deleteCategoria(id);
+    public ResponseEntity<Categoria> deleteCategoria(@PathVariable Integer id){
+        return new ResponseEntity<>(categoriaService.deleteCategoria(id), HttpStatus.OK);
     }
 
 }
