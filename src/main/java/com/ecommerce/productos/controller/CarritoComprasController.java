@@ -6,6 +6,8 @@ import com.ecommerce.productos.entity.Producto;
 import com.ecommerce.productos.entity.Usuario;
 import com.ecommerce.productos.service.CarritoComprasService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,81 +16,50 @@ import java.util.List;
 @RequestMapping("/carrito")
 public class CarritoComprasController {
 
+    /*
+    Los métodos addCarrito() y subtractCarrito() dejaron de funcionar en la web
+     no sé si el error está en el front o en el back, buscar y arreglar.
+    * */
+
     @Autowired
     private CarritoComprasService carritoComprasService;
 
     // Listar todos los carritos de todos los usuarios
     @GetMapping("/listar")
-    public List<CarritoCompras> getCarrito(){
-        return carritoComprasService.findAll();
+    public ResponseEntity<List<CarritoCompras>> getCarrito(){
+        return new ResponseEntity<>(carritoComprasService.findAll(), HttpStatus.OK);
     }
 
     // Listar un carrito por el ID del usuario, solo muestra el carrito
     @GetMapping("/listar/{id}")
-    public List<CarritoCompras> getCarritoId(@PathVariable Long id){
-        return carritoComprasService.findByUsuarioId(id);
+    public ResponseEntity<List<CarritoCompras>> getCarritoId(@PathVariable Long id){
+        return new ResponseEntity<>(carritoComprasService.findByUsuarioId(id), HttpStatus.OK);
     }
 
-    @PostMapping("/nuevo")
-    public void addCarrito(@RequestBody CarritoCompras carrito){
 
-        Usuario usuario = carrito.getUsuario();
-        Producto producto = carrito.getProductos();
-
-        // Busca si el producto ya existe en el carrito de un usuario
-        CarritoCompras carritoCompras = carritoComprasService
-                .findByUsuarioAndProducto(usuario, producto);
-
-        // Si el producto no existe en el carrito, se crea y se agrega 1
-        if (carritoCompras == null) {
-            carritoCompras = new CarritoCompras();
-            carritoCompras.setUsuario(usuario);
-            carritoCompras.setProductos(producto);
-            carritoCompras.setCantidad(1);
-        }
-        // Si el producto ya existe en el carrito, se suma 1
-        else {
-            int nuevaCantidad = carritoCompras.getCantidad() + 1;
-            carritoCompras.setCantidad(nuevaCantidad);
-        }
-
-        carritoComprasService.addProducto(carritoCompras);
+    @PutMapping("/nuevo")
+    public ResponseEntity<CarritoCompras> addCarrito(@RequestBody CarritoCompras carrito){
+        return new ResponseEntity<>(carritoComprasService.addProducto(carrito), HttpStatus.OK);
     }
-    @PostMapping("/restar")
-    public void subtractCarrito(@RequestBody CarritoCompras carrito){
 
-        Usuario usuario = carrito.getUsuario();
-        Producto producto = carrito.getProductos();
-
-        // Busca si el producto ya existe en el carrito de un usuario
-        CarritoCompras carritoCompras = carritoComprasService
-                .findByUsuarioAndProducto(usuario, producto);
-
-        // Si existe y la cantidad es mayor que 1, le resta 1. Si la cantidad es menos de 1, lo elimina
-        if (carritoCompras != null){
-            if (carritoCompras.getCantidad() > 1) {
-                carritoCompras.setCantidad(carrito.getCantidad() - 1);
-                carritoComprasService.addProducto(carritoCompras);
-            } else{
-                carritoComprasService.deleteProductoById(carrito.getId());
-                //carritoComprasService.deleteProductoById(Long.valueOf(carrito.getId()));
-            }
-
-        }
+    @PutMapping("/restar")
+    public ResponseEntity<CarritoCompras> subtractCarrito(@RequestBody CarritoCompras carrito){
+        return new ResponseEntity<>(carritoComprasService.subtractProducto(carrito), HttpStatus.OK);
     }
 
 
     // Elimina toda la cantidad de un producto del carrito de un usuario
     // (al presionar el botón de 'X'. NO resta cantidad.)
     @DeleteMapping("/eliminar/producto/{id}")
-    public void removeProductoId(@PathVariable Long id){
+    public ResponseEntity<Void> removeProductoId(@PathVariable Long id){
         carritoComprasService.deleteProductoById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // Vacía el carrito de un usuario
     @DeleteMapping("/eliminar/{id}")
-    public void cleanCarritoId(@PathVariable Long id){
-        carritoComprasService.deleteByUsuarioId(id);
+    public ResponseEntity<List<CarritoCompras>> cleanCarritoId(@PathVariable Long id){
+        return new ResponseEntity<>(carritoComprasService.deleteByUsuarioId(id), HttpStatus.OK);
     }
 
 }

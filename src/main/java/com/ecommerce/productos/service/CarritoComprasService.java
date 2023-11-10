@@ -16,11 +16,13 @@ public interface CarritoComprasService {
     CarritoCompras findByUsuarioAndProducto(@Param("usuario") Usuario usuario,
                                                       @Param("producto") Producto producto);
 
-    void deleteByUsuarioId(Long idUsuario);
+    List<CarritoCompras> deleteByUsuarioId(Long idUsuario);
 
     Long countByUsuarioId(Integer id);
 
     void deleteProductoById(Long idProducto);
 
-    void addProducto(CarritoCompras producto);
+    CarritoCompras addProducto(CarritoCompras producto);
+
+    CarritoCompras subtractProducto(CarritoCompras carrito);
 }
